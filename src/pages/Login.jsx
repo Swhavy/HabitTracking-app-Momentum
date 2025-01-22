@@ -6,6 +6,9 @@ import Footer from '../Components/Footer'
 import facebook from '../assets/Images/Facebook.svg'
 import google from '../assets/Images/Google.svg'
 import X from '../assets/Images/X.svg'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import { auth } from '../firebase'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Login = () => {
   const [field, setField] = useState({ email: '', password: '' })
@@ -14,12 +17,30 @@ const Login = () => {
   }
   const [passwordVisibility, setPasswordVisibility] = useState(false)
   const [password, setPassword] = useState('password')
+  const navigate = useNavigate()
   const togglePassword = () => {
     setPasswordVisibility(!passwordVisibility)
     if (passwordVisibility) {
       setPassword('password')
     } else {
       setPassword('text')
+    }
+  }
+
+  const login = async (e) => {
+    e.preventDefault()
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        field.email,
+        field.password
+      )
+      console.log('Successful Login')
+      alert('Login successful')
+      navigate('/habit')
+    } catch (error) {
+      alert('error:' + error.message)
+      console.log('error', error.message)
     }
   }
 
@@ -31,7 +52,7 @@ const Login = () => {
           <h2 className="text-4xl font-semibold text-center text-gray-800 mb-8">
             Login To Your Account
           </h2>
-          <form method="post" action="submit" className="space-y-6">
+          <form method="post" onSubmit={login} className="space-y-6">
             <div className="relative">
               <input
                 id="email"
@@ -84,14 +105,13 @@ const Login = () => {
             </button>
           </form>
           <p className="mt-4 text-center text-gray-600">
-            Already have an account?
-            <a
+            Don't Have an Account?
+            <Link
+              to="/signup"
               className="text-blue-400 rounded-lg p-2 bg-gray-100 hover:underline"
-              href="/login"
-              data-discover="true"
             >
-              Login here
-            </a>
+              SignUp here
+            </Link>
           </p>
           <div className="mt-6 text-sm text-red-500">
             <p>Password must be at least 8 characters long.</p>

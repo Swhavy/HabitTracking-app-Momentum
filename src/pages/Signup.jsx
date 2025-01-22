@@ -6,6 +6,9 @@ import Footer from '../Components/Footer'
 import facebook from '../assets/Images/Facebook.svg'
 import google from '../assets/Images/Google.svg'
 import X from '../assets/Images/X.svg'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { auth } from '../firebase'
+import { useNavigate } from 'react-router-dom'
 
 const Signup = () => {
   const [field, setField] = useState({ email: '', password: '' })
@@ -22,6 +25,24 @@ const Signup = () => {
       setPassword('text')
     }
   }
+  const navigate = useNavigate()
+
+  const signup = async (e) => {
+    e.preventDefault()
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        field.email,
+        field.password
+      )
+      console.log('Successful SignUp')
+      alert('Login successful')
+      navigate('/habit')
+    } catch (error) {
+      alert('error:' + error.message)
+      console.log('signupErr', error.message)
+    }
+  }
 
   return (
     <div className="flex flex-col justify-between gap-48">
@@ -31,7 +52,7 @@ const Signup = () => {
           <h2 className="text-4xl font-semibold text-center text-gray-800 mb-8">
             Create an Account
           </h2>
-          <form method="post" action="submit" className="space-y-6">
+          <form method="post" onSubmit={signup} className="space-y-6">
             <div className="relative">
               <input
                 id="email"
@@ -40,7 +61,7 @@ const Signup = () => {
                 required=""
                 type="email"
                 value={field.email}
-                onChange={handleChange}
+                onChange={(e) => handleChange(e)}
                 name="email"
               />
               <label
@@ -59,7 +80,7 @@ const Signup = () => {
                 type={password}
                 value={field.password}
                 name="password"
-                onChange={handleChange}
+                onChange={(e) => handleChange(e)}
               />
               <div className="bg-black w-[10%] h-[50%] rounded-full flex justify-center items-center absolute right-0 top-8 transform -translate-y-1/2 cursor-pointer">
                 <img

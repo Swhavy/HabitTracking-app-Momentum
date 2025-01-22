@@ -10,7 +10,6 @@ const AddhabitModule = () => {
   const [habitDate, setHabitDate] = useState('')
   const [habitDescription, setHabitDescription] = useState('')
   const [habitPriority, setHabitPriority] = useState('')
-  const [moduleClosed, setModuleClosed] = useState(closed)
 
   const setHabit = () => {
     dispatch(
@@ -20,9 +19,9 @@ const AddhabitModule = () => {
         date: habitDate,
         description: habitDescription,
         priority: habitPriority,
-        closed: moduleClosed,
       })
     )
+    dispatch(togglemodule())
   }
 
   const handleAddHabit = () => {

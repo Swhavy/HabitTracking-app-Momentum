@@ -1,19 +1,30 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import AddhabitModule from './AddhabitModule'
-import { deleteHabit } from '../features/Addhabitslice'
+import { togglemodule } from '../features/Addhabitslice'
+import HabitCard from './HabitCard'
 
 const Habit = () => {
+  const dispatch = useDispatch()
   const info = useSelector((state) => state.Habit)
-  const [{ name, closed, priority, description, date }] = info
-  const [displayModule, setDisplayModule] = useState(closed)
+  const [displayModule, setDisplayModule] = useState(info[0].closed)
   const [rate, setRate] = useState(0)
   const [duration, setDuration] = useState(4)
   const [user, setUser] = useState('John Doe')
 
+  const [reducer, setReducer] = useState('')
   useEffect(() => {
-    setDisplayModule(!displayModule)
+    const reducerIndexSip = info.filter((data) => data.id !== 0)
+    setReducer(reducerIndexSip)
   }, [info])
+
+  useEffect(() => {
+    setDisplayModule(info[0].closed)
+  }, [info[0].closed])
+
+  const handleAddHabit = () => {
+    dispatch(togglemodule())
+  }
 
   const handleRate = () => {
     setRate((prevRate) => {
@@ -48,7 +59,7 @@ const Habit = () => {
         <h2 className="text-3xl font-bold text-gray-800 mb-6">My Habits</h2>
         <button
           className="bg-blue-500 text-white px-6 py-2 rounded-lg mb-6 hover:bg-blue-600 transition-colors"
-          onClick={() => setDisplayModule(!displayModule)}
+          onClick={handleAddHabit}
         >
           <svg
             stroke="currentColor"
@@ -88,7 +99,24 @@ const Habit = () => {
           </svg>{' '}
           Rewards: <span className="ml-2 font-bold">0 Trons</span>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 min-[768px]:max-[1175px]:flex min-[768px]:max-[1175px]:justify-center bg-red-300"></div>
+        {/* Logic */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 min-[768px]:max-[1175px]:flex min-[768px]:max-[1175px]:justify-center bg-red-300">
+          {info[1]
+            ? reducer.map((Sabit) => {
+                const { name, priority, description, date, id } = Sabit
+
+                return (
+                  <HabitCard
+                    name={name}
+                    priority={priority}
+                    description={description}
+                    date={date}
+                    id={id}
+                  />
+                )
+              })
+            : ''}
+        </div>
 
         <section
           className="Toastify"

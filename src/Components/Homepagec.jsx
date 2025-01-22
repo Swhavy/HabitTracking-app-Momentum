@@ -187,44 +187,44 @@ const Homepage = () => {
         transition={{ duration: 0.8, ease: 'easeOut' }}
       >
         <h2
-          class="text-3xl font-bold text-center text-blue-800 mb-8 aos-init aos-animate"
+          className="text-3xl font-bold text-center text-blue-800 mb-8 aos-init aos-animate"
           data-aos="fade-up"
         >
           Success Stories
         </h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
           <div
-            class="bg-white p-8 rounded-lg shadow-md aos-init aos-animate"
+            className="bg-white p-8 rounded-lg shadow-md aos-init aos-animate"
             data-aos="fade-up"
             data-aos-delay="100"
           >
-            <p class="text-gray-700 italic">
+            <p className="text-gray-700 italic">
               "Momentum helped me stay consistent with my workout routine, and
               now I'm in the best shape of my life!"
             </p>
-            <p class="text-blue-700 font-semibold mt-4">- Ellis</p>
+            <p className="text-blue-700 font-semibold mt-4">- Ellis</p>
           </div>
           <div
-            class="bg-white p-8 rounded-lg shadow-md aos-init aos-animate"
+            className="bg-white p-8 rounded-lg shadow-md aos-init aos-animate"
             data-aos="fade-up"
             data-aos-delay="200"
           >
-            <p class="text-gray-700 italic">
+            <p className="text-gray-700 italic">
               "Tracking my productivity with Momentum allowed me to focus on
               what matters, and my work efficiency skyrocketed!"
             </p>
-            <p class="text-blue-700 font-semibold mt-4">- Valentine</p>
+            <p className="text-blue-700 font-semibold mt-4">- Valentine</p>
           </div>
           <div
-            class="bg-white p-8 rounded-lg shadow-md aos-init aos-animate"
+            className="bg-white p-8 rounded-lg shadow-md aos-init aos-animate"
             data-aos="fade-up"
             data-aos-delay="300"
           >
-            <p class="text-gray-700 italic">
+            <p className="text-gray-700 italic">
               "Thanks to Momentum, I've built healthy habits around learning and
               reading every day!"
             </p>
-            <p class="text-blue-700 font-semibold mt-4">- David</p>
+            <p className="text-blue-700 font-semibold mt-4">- David</p>
           </div>
         </div>
       </motion.section>
